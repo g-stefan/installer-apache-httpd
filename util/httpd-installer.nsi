@@ -192,6 +192,9 @@ Section "HTTPD (required)" MainSection
 	CreateDirectory "$PathProgramData\HTTPD\www"
 	CreateDirectory "$PathProgramData\HTTPD\tmp"
 	CreateDirectory "$PathProgramData\HTTPD\log"
+	CreateDirectory "$PathProgramData\HTTPD\conf"
+	CreateDirectory "$PathProgramData\HTTPD\conf\conf"
+	CreateDirectory "$PathProgramData\HTTPD\conf\sites"
 
 	${StrRep} "$_ServerPath" "$INSTDIR" "\" "/"
 	${StrRep} "$_ConfigPath" "$PathProgramData\HTTPD" "\" "/"
