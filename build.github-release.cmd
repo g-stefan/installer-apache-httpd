@@ -3,9 +3,11 @@ rem Public domain
 rem http://unlicense.org/
 rem Created by Grigore Stefan <g_stefan@yahoo.com>
 
+call build.config.cmd
+
 SETLOCAL ENABLEDELAYEDEXPANSION
 
-echo -^> github-release installer-apache-httpd
+echo -^> github-release %PRODUCT_NAME%
 
 call build.config.cmd
 set PROJECT=installer-apache-httpd
