@@ -121,6 +121,7 @@ Var PathPHP
 Var _ServerPath
 Var _ConfigPath
 Var _PHPPath
+Var _ProgramDataPath
 
 ;--------------------------------
 ;Installer Sections
@@ -150,10 +151,14 @@ Section "HTTPD (required)" MainSection
 
 ; Uninstaller
 !ifndef INNER
-	SetOutPath $INSTDIR 
+	SetOutPath $INSTDIR
 	; this packages the signed uninstaller 
 	File "build\Uninstall.exe"
 !endif
+
+	SetOutPath "$INSTDIR\php"
+	File "util\php-error.php"
+	SetOutPath $INSTDIR
 
 	; Computing EstimatedSize
 	Call GetInstalledSize
@@ -215,7 +220,12 @@ Section "HTTPD (required)" MainSection
 			${StrRep} "$_PHPPath" "$PathPHP" "\" "/"
 			!insertmacro _ReplaceInFile "extra\httpd-php.conf" "$$PHP_PATH" "$_PHPPath"
 			!insertmacro _ReplaceInFile "extra\httpd-php.conf" "$$PHP_INI_PATH" "$_PHPPath"
+			!insertmacro _ReplaceInFile "extra\httpd-php.conf" "$$PROGRAMDATA" "$PathProgramData"
+			!insertmacro _ReplaceInFile "extra\httpd-php.conf" "$$HTTPD" "$INSTDIR"
 			Delete "extra\httpd-php.conf.old"
+			${StrRep} "$_ProgramDataPath" "$PathProgramData" "\" "\\"
+			!insertmacro _ReplaceInFile "..\php\php-error.php" "$$PROGRAMDATA" "$_ProgramDataPath"
+			Delete "..\php\php-error.php.old"
 		${EndIf}
 	${EndIf}
 

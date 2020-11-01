@@ -1,0 +1,1 @@
+<?php ini_set("error_log","$PROGRAMDATA\\HTTPD\\log\\".date("Y-m-d").".php-error.log");
