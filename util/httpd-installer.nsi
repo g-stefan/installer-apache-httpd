@@ -13,7 +13,7 @@
 Name "HTTPD"
 
 ; Version
-!define HTTPDVersion "2.4.46"
+!define HTTPDVersion "$%PRODUCT_VERSION%"
 
 ; The file to write
 OutFile "installer\httpd-${HTTPDVersion}-installer.exe"

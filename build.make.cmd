@@ -5,18 +5,20 @@ rem Created by Grigore Stefan <g_stefan@yahoo.com>
 
 echo -^> make httpd
 
+call build.config.cmd
+
 if exist build\ rmdir /Q /S build
 if exist release\ rmdir /Q /S release
 
 mkdir build
-7z x "vendor/httpd-2.4.46-win64-VS16.zip" -aoa -obuild
+7z x "vendor/httpd-%PRODUCT_VERSION%-win64-VS16.zip" -aoa -obuild
 move "build\Apache24" "release"
 move "build\ReadMe.txt" "release\Distribution-ReadMe.txt"
 rmdir /Q /S build
 
 mkdir build
-7z x "vendor/httpd-2.4.46-win64-msvc-2019.7z" -aoa -obuild
-move "build\httpd-2.4.46-win64-msvc-2019\bin\rotatelogsw.exe" "release\bin\rotatelogsw.exe"
+7z x "vendor/httpd-%PRODUCT_VERSION%-win64-msvc-2019.7z" -aoa -obuild
+move "build\httpd-%PRODUCT_VERSION%-win64-msvc-2019\bin\rotatelogsw.exe" "release\bin\rotatelogsw.exe"
 rmdir /Q /S build
 
 copy /B /Y vendor\vc-2019-redist.x64.exe release\vc-2019-redist.x64.exe
