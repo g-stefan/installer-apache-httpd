@@ -5,10 +5,10 @@ rem Created by Grigore Stefan <g_stefan@yahoo.com>
 
 SETLOCAL ENABLEDELAYEDEXPANSION
 
-echo -^> github-release apache-httpd
+echo -^> github-release installer-apache-httpd
 
 call build.config.cmd
-set PROJECT=apache-httpd
+set PROJECT=installer-apache-httpd
 set VERSION=%PRODUCT_VERSION%
 
 if not exist installer\ echo Error - no release & exit 1
@@ -17,6 +17,8 @@ if not exist installer\httpd-%VERSION%-installer.exe echo Error - no release - i
 echo -^> github release %PROJECT% v%VERSION%
 
 git pull --tags origin master
+git fetch origin --tags --force
+git fetch --prune origin "+refs/tags/*:refs/tags/*"
 git rev-parse --quiet "v%VERSION%" 1>NUL 2>NUL
 if not errorlevel 1 goto tagExists
 git tag -a v%VERSION% -m "v%VERSION%"

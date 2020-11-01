@@ -3,7 +3,7 @@ rem Public domain
 rem http://unlicense.org/
 rem Created by Grigore Stefan <g_stefan@yahoo.com>
 
-echo -^> installer httpd
+echo -^> installer installer-apache-httpd
 
 call build.config.cmd
 

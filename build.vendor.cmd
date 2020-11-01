@@ -3,7 +3,7 @@ rem Public domain
 rem http://unlicense.org/
 rem Created by Grigore Stefan <g_stefan@yahoo.com>
 
-echo -^> vendor httpd
+echo -^> vendor installer-apache-httpd
 
 if not exist vendor\ mkdir vendor
 
