@@ -7,8 +7,6 @@ call build.config.cmd
 
 echo -^> installer %PRODUCT_NAME%
 
-call build.config.cmd
-
 if exist installer\ rmdir /Q /S installer
 mkdir installer
 
@@ -17,6 +15,6 @@ mkdir build
 
 makensis.exe /NOCD "util\httpd-installer.nsi"
 
-call grigore-stefan.sign "HTTPD" "installer\httpd-%PRODUCT_VERSION%-installer.exe"
+call grigore-stefan.sign "HTTPD" "installer\%PRODUCT_BASE%-%PRODUCT_VERSION%-installer.exe"
 
 if exist build\ rmdir /Q /S build

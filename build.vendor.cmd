@@ -9,8 +9,6 @@ echo -^> vendor %PRODUCT_NAME%
 
 if not exist vendor\ mkdir vendor
 
-call build.config.cmd
-
 set VENDOR=httpd-%PRODUCT_VERSION%-win64-VS16.zip
 set WEB_LINK=https://www.apachelounge.com/download/VS16/binaries/httpd-%PRODUCT_VERSION%-win64-VS16.zip
 if not exist vendor\%VENDOR% curl -A "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:59.0) Gecko/20100101 Firefox/59.0" --insecure --location %WEB_LINK% --output vendor\%VENDOR%

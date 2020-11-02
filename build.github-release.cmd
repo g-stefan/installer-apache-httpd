@@ -9,12 +9,11 @@ SETLOCAL ENABLEDELAYEDEXPANSION
 
 echo -^> github-release %PRODUCT_NAME%
 
-call build.config.cmd
-set PROJECT=installer-apache-httpd
+set PROJECT=%PRODUCT_NAME%
 set VERSION=%PRODUCT_VERSION%
 
 if not exist installer\ echo Error - no release & exit 1
-if not exist installer\httpd-%VERSION%-installer.exe echo Error - no release - installer & exit 1
+if not exist installer\%PRODUCT_BASE%-%VERSION%-installer.exe echo Error - no release - installer & exit 1
 
 echo -^> github release %PROJECT% v%VERSION%
 
@@ -28,7 +27,7 @@ git push --tags
 echo Create release %PROJECT% v%VERSION%
 github-release release --repo %PROJECT% --tag v%VERSION% --name "v%VERSION%" --description "Release"
 pushd installer
-for /r %%i in (httpd-%VERSION%-installer.exe) do echo Upload %%~nxi & github-release upload --repo %PROJECT% --tag v%VERSION% --name "%%~nxi" --file "%%i"
+for /r %%i in (%PRODUCT_BASE%-%VERSION%-installer.exe) do echo Upload %%~nxi & github-release upload --repo %PROJECT% --tag v%VERSION% --name "%%~nxi" --file "%%i"
 popd
 
 goto :eof
