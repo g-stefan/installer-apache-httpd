@@ -23,7 +23,6 @@ rmdir /Q /S build
 
 copy /B /Y vendor\vc-2019-redist.x64.exe release\vc-2019-redist.x64.exe
 copy /B /Y util\httpd.conf release\conf\httpd.conf
-copy /B /Y util\httpd-php.conf release\conf\extra\httpd-php.conf
 
 rmdir /Q /S release\include
 rmdir /Q /S release\lib

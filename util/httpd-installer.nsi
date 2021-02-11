@@ -117,11 +117,8 @@ FunctionEnd
 ; Variables
 
 Var PathProgramData
-Var PathPHP
 Var _ServerPath
 Var _ConfigPath
-Var _PHPPath
-Var _ProgramDataPath
 
 ;--------------------------------
 ;Installer Sections
@@ -156,8 +153,6 @@ Section "HTTPD (required)" MainSection
 	File "build\Uninstall.exe"
 !endif
 
-	SetOutPath "$INSTDIR\php"
-	File "util\php-error.php"
 	SetOutPath $INSTDIR
 
 	; Computing EstimatedSize
@@ -209,25 +204,8 @@ Section "HTTPD (required)" MainSection
 	!insertmacro _ReplaceInFile "httpd.conf" "$$SERVER_PATH" "$_ServerPath"
 	!insertmacro _ReplaceInFile "httpd.conf" "$$CONFIG_PATH" "$_ConfigPath"
 	!insertmacro _ReplaceInFile "httpd.conf" "$$SERVER_PORT" "80"
-	!insertmacro _ReplaceInFile "httpd.conf" "$$ADMIN_EMAIL" "unoknown@localhost"
+	!insertmacro _ReplaceInFile "httpd.conf" "$$ADMIN_EMAIL" "unknown@localhost"
 	Delete "httpd.conf.old"
-
-	ReadRegStr $PathPHP HKLM "Software\PHP" "InstallPath"
-	${IfNot} ${Errors}
-		${If} ${FileExists} "$PathPHP\php7apache2_4.dll"
-			!insertmacro _ReplaceInFile "httpd.conf" "#Include conf/extra/httpd-php.conf" "Include conf/extra/httpd-php.conf"
-			Delete "httpd.conf.old"
-			${StrRep} "$_PHPPath" "$PathPHP" "\" "/"
-			!insertmacro _ReplaceInFile "extra\httpd-php.conf" "$$PHP_PATH" "$_PHPPath"
-			!insertmacro _ReplaceInFile "extra\httpd-php.conf" "$$PHP_INI_PATH" "$_PHPPath"
-			!insertmacro _ReplaceInFile "extra\httpd-php.conf" "$$PROGRAMDATA" "$PathProgramData"
-			!insertmacro _ReplaceInFile "extra\httpd-php.conf" "$$HTTPD" "$INSTDIR"
-			Delete "extra\httpd-php.conf.old"
-			${StrRep} "$_ProgramDataPath" "$PathProgramData" "\" "\\"
-			!insertmacro _ReplaceInFile "..\php\php-error.php" "$$PROGRAMDATA" "$_ProgramDataPath"
-			Delete "..\php\php-error.php.old"
-		${EndIf}
-	${EndIf}
 
 	SetOutPath "$INSTDIR"
 	${IfNot} ${FileExists} "$PathProgramData\HTTPD\www\index.html"
