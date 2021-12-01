@@ -180,9 +180,9 @@ Section "HTTPD (required)" MainSection
 	${EndIf}
 
 	SetOutPath $INSTDIR
-	nsExec::Exec "vc-2019-redist.x64.exe /install /quiet /norestart"
+	nsExec::Exec "vc-2022-redist.x64.exe /install /quiet /norestart"
 	Sleep 3000
-	Delete "vc-2019-redist.x64.exe"
+	Delete "vc-2022-redist.x64.exe"
 
 	; Create ProgramData folder
 	ReadEnvStr $0 "ProgramData"

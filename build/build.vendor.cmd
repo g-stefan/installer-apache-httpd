@@ -20,3 +20,7 @@ if not exist vendor\%VENDOR% curl --insecure --location %WEB_LINK% --output vend
 set VENDOR=vc-2019-redist.x64.exe
 set WEB_LINK=https://aka.ms/vs/16/release/vc_redist.x64.exe
 if not exist vendor\%VENDOR% curl --insecure --location %WEB_LINK% --output vendor\%VENDOR%
+
+set VENDOR=vc-2022-redist.x64.exe
+set WEB_LINK=https://aka.ms/vs/17/release/vc_redist.x64.exe
+if not exist vendor\%VENDOR% curl --insecure --location %WEB_LINK% --output vendor\%VENDOR%
