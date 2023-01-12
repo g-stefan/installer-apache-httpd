@@ -13,7 +13,7 @@
 		"hasGithub" : true,
 		"sourceLinks" : {
 			"httpd-2.4.54-win64-VS16.zip" : "https://www.apachelounge.com/download/",
-			"httpd-2.4.54-win64-msvc-2022.7z" : "https://github.com/g-stefan/vendor-httpd/releases"
+			"httpd-2.4.54-win64-msvc-2022.7z" : "https://github.com/g-stefan/vendor-httpd/releases",
 			"vc-2022-redist.x64.exe" : "https://aka.ms/vs/17/release/vc_redist.x64.exe"			
 		}
 	}
