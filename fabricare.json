@@ -10,7 +10,6 @@
 				"noVersion" : true
 			}
 		],
-		"hasGithub" : true,
 		"sourceLinks" : {
 			"httpd-2.4.54-win64-VS16.zip" : "https://www.apachelounge.com/download/",
 			"httpd-2.4.54-win64-msvc-2022.7z" : "https://github.com/g-stefan/vendor-httpd/releases",
