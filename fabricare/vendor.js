@@ -9,7 +9,7 @@ Shell.mkdirRecursivelyIfNotExists("vendor");
 
 var vendor="httpd-"+Project.version+"-win64-VS17.zip";
 if (!Shell.fileExists("vendor/"+vendor)) {
-	var webLink = "https://www.apachelounge.com/download/VS17/binaries/httpd-"+Project.version+"-240904-win64-VS17.zip";
+	var webLink = "https://www.apachelounge.com/download/VS17/binaries/httpd-2.4.65-250724-Win64-VS17.zip";
 	var cmd = "curl -A \"Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:59.0) Gecko/20100101 Firefox/59.0\" --insecure --location "+webLink+" --output vendor/"+vendor;
 	Console.writeLn(cmd);
 	exitIf(Shell.system(cmd));

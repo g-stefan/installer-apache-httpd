@@ -180,6 +180,7 @@ Section "HTTPD (required)" MainSection
 		Pop $0
 	${EndIf}
 
+	; MSVC Redist
 	SetOutPath $INSTDIR
 	nsExec::Exec "vc-2022-redist.x64.exe /install /quiet /norestart"
 	Sleep 3000
