@@ -13,10 +13,10 @@ Shell.setenv("PRODUCT_VERSION", Project.version);
 Shell.setenv("PRODUCT_BASE", "httpd");
 
 exitIf(Shell.system("makensis.exe /NOCD \"source\\httpd-installer.nsi\""));
-exitIf(Shell.system("grigore-stefan.sign \"HTTPD\" \"release\\httpd-" + Project.version + "-installer.exe\""));
+exitIf(Shell.system("grigore-stefan.sign \"HTTPD\" \"release\\xyo-httpd-" + Project.version + "-installer.exe\""));
 
-var fileName = "httpd-" + Project.version + "-installer.exe";
-var jsonName = "httpd-" + Project.version + "-installer.json";
+var fileName = "xyo-httpd-" + Project.version + "-installer.exe";
+var jsonName = "xyo-httpd-" + Project.version + "-installer.json";
 
 var json = {};
 json[fileName] = SHA512.fileHash("release/" + fileName);

@@ -7,9 +7,9 @@ messageAction("vendor");
 
 Shell.mkdirRecursivelyIfNotExists("vendor");
 
-var vendor="httpd-"+Project.version+"-win64-VS17.zip";
+var vendor="httpd-"+Project.version+"-win64-VS18.zip";
 if (!Shell.fileExists("vendor/"+vendor)) {
-	var webLink = "https://www.apachelounge.com/download/VS17/binaries/httpd-2.4.65-250724-Win64-VS17.zip";
+	var webLink = "https://www.apachelounge.com/download/VS18/binaries/httpd-2.4.68-260617-Win64-VS18.zip";
 	var cmd = "curl -A \"Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:59.0) Gecko/20100101 Firefox/59.0\" --insecure --location "+webLink+" --output vendor/"+vendor;
 	Console.writeLn(cmd);
 	exitIf(Shell.system(cmd));
@@ -33,9 +33,9 @@ if (!Shell.fileExists("vendor/"+vendor)) {
 	exitIf(Shell.system(cmd));
 };
 
-var vendor="vc-2022-redist.x64.exe";
+var vendor="vc-2026-redist.x64.exe";
 if (!Shell.fileExists("vendor/"+vendor)) {
-	var webLink = "https://aka.ms/vs/17/release/vc_redist.x64.exe";
+	var webLink = "https://aka.ms/vs/18/release/vc_redist.x64.exe";
 	var cmd = "curl --insecure --location "+webLink+" --output vendor/"+vendor;
 	Console.writeLn(cmd);
 	exitIf(Shell.system(cmd));

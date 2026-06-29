@@ -19,7 +19,7 @@ Shell.removeDirRecursivelyForce("temp");
 var version = getVersion();
 
 Shell.mkdirRecursivelyIfNotExists("temp");
-Shell.system("7z x vendor/httpd-"+version+"-win64-VS17.zip -aoa -otemp");
+Shell.system("7z x vendor/httpd-"+version+"-win64-VS18.zip -aoa -otemp");
 Shell.rename("temp/Apache24","output");
 Shell.rename("temp/ReadMe.txt","output/Distribution-ReadMe.txt");
 Shell.removeDirRecursivelyForce("temp");
@@ -29,7 +29,7 @@ Shell.system("7z x vendor/httpd-"+version+"-win64-msvc-2022.7z -aoa -otemp");
 Shell.rename("temp/bin/rotatelogsw.exe","output/bin/rotatelogsw.exe");
 Shell.removeDirRecursivelyForce("temp");
 
-Shell.copyFile("vendor/vc-2022-redist.x64.exe","output/vc-2022-redist.x64.exe");
+Shell.copyFile("vendor/vc-2026-redist.x64.exe","output/vc-2026-redist.x64.exe");
 Shell.copyFile("source/httpd.conf", "output/conf/httpd.conf");
 
 Shell.removeDirRecursivelyForce("output/include");

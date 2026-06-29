@@ -17,18 +17,18 @@ Name "HTTPD"
 !define HTTPDVersion "$%PRODUCT_VERSION%"
 
 ; The file to write
-OutFile "release\httpd-${HTTPDVersion}-installer.exe"
+OutFile "release\xyo-httpd-${HTTPDVersion}-installer.exe"
 
 Unicode True
 RequestExecutionLevel admin
 BrandingText "Grigore Stefan [ github.com/g-stefan ]"
 
 ; The default installation directory
-InstallDir "$PROGRAMFILES64\HTTPD"
+InstallDir "$PROGRAMFILES64\XYO\HTTPD"
 
 ; Registry key to check for directory (so if you install again, it will 
 ; overwrite the old one automatically)
-InstallDirRegKey HKLM "Software\HTTPD" "InstallPath"
+InstallDirRegKey HKLM "Software\XYO\HTTPD" "InstallPath"
 
 ;--------------------------------
 ;Interface Settings
@@ -131,16 +131,16 @@ Section "HTTPD (required)" MainSection
 
 	; Set output path to the installation directory.
 	SetOutPath $INSTDIR
-	WriteRegStr HKLM "Software\HTTPD" "InstallPath" "$INSTDIR"
+	WriteRegStr HKLM "Software\XYO\HTTPD" "InstallPath" "$INSTDIR"
 
 	; Write the uninstall keys for Windows
-	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\HTTPD" "DisplayName" "HTTPD"
-	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\HTTPD" "Publisher" "Grigore Stefan [ github.com/g-stefan ]"
-	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\HTTPD" "DisplayVersion" "${HTTPDVersion}"
-	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\HTTPD" "DisplayIcon" '"$INSTDIR\bin\httpd.exe"'
-	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\HTTPD" "UninstallString" '"$INSTDIR\Uninstall.exe"'
-	WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\HTTPD" "NoModify" 1
-	WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\HTTPD" "NoRepair" 1
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\XYO-HTTPD" "DisplayName" "XYO HTTPD"
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\XYO-HTTPD" "Publisher" "Grigore Stefan [ github.com/g-stefan ]"
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\XYO-HTTPD" "DisplayVersion" "${HTTPDVersion}"
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\XYO-HTTPD" "DisplayIcon" '"$INSTDIR\bin\httpd.exe"'
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\XYO-HTTPD" "UninstallString" '"$INSTDIR\Uninstall.exe"'
+	WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\XYO-HTTPD" "NoModify" 1
+	WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\XYO-HTTPD" "NoRepair" 1
 
 	; Program files
 	File /r "output\*"
@@ -159,7 +159,7 @@ Section "HTTPD (required)" MainSection
 	; Computing EstimatedSize
 	Call GetInstalledSize
 	Pop $0
-	WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\HTTPD" "EstimatedSize" "$0"
+	WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\XYO-HTTPD" "EstimatedSize" "$0"
 
 	; Set to HKLM
 	EnVar::SetHKLM
@@ -182,24 +182,25 @@ Section "HTTPD (required)" MainSection
 
 	; MSVC Redist
 	SetOutPath $INSTDIR
-	nsExec::Exec "vc-2022-redist.x64.exe /install /quiet /norestart"
+	nsExec::Exec "vc-2026-redist.x64.exe /install /quiet /norestart"
 	Sleep 3000
-	Delete "vc-2022-redist.x64.exe"
+	Delete "vc-2026-redist.x64.exe"
 
 	; Create ProgramData folder
 	ReadEnvStr $0 "ProgramData"
 	StrCpy $PathProgramData $0
 
-	CreateDirectory "$PathProgramData\HTTPD"
-	CreateDirectory "$PathProgramData\HTTPD\www"
-	CreateDirectory "$PathProgramData\HTTPD\tmp"
-	CreateDirectory "$PathProgramData\HTTPD\log"
-	CreateDirectory "$PathProgramData\HTTPD\conf"
-	CreateDirectory "$PathProgramData\HTTPD\conf\conf"
-	CreateDirectory "$PathProgramData\HTTPD\conf\sites"
+	CreateDirectory "$PathProgramData\XYO"
+	CreateDirectory "$PathProgramData\XYO\HTTPD"
+	CreateDirectory "$PathProgramData\XYO\HTTPD\www"
+	CreateDirectory "$PathProgramData\XYO\HTTPD\tmp"
+	CreateDirectory "$PathProgramData\XYO\HTTPD\log"
+	CreateDirectory "$PathProgramData\XYO\HTTPD\conf"
+	CreateDirectory "$PathProgramData\XYO\HTTPD\conf\conf"
+	CreateDirectory "$PathProgramData\XYO\HTTPD\conf\sites"
 
 	${StrRep} "$_ServerPath" "$INSTDIR" "\" "/"
-	${StrRep} "$_ConfigPath" "$PathProgramData\HTTPD" "\" "/"
+	${StrRep} "$_ConfigPath" "$PathProgramData\XYO\HTTPD" "\" "/"
 
 	; Configure
 	SetOutPath "$INSTDIR\conf"
@@ -210,13 +211,13 @@ Section "HTTPD (required)" MainSection
 	Delete "httpd.conf.old"
 
 	SetOutPath "$INSTDIR"
-	${IfNot} ${FileExists} "$PathProgramData\HTTPD\www\index.html"
-		CopyFiles "$INSTDIR\htdocs\index.html" "$PathProgramData\HTTPD\www\index.html"
+	${IfNot} ${FileExists} "$PathProgramData\XYO\HTTPD\www\index.html"
+		CopyFiles "$INSTDIR\htdocs\index.html" "$PathProgramData\XYO\HTTPD\www\index.html"
 	${EndIf}
 
 	SetOutPath "$INSTDIR\bin"
-	nsExec::Exec "httpd.exe -k install -n $\"HTTPD$\""
-	nsExec::Exec "sc start HTTPD"
+	nsExec::Exec "httpd.exe -k install -n $\"XYO_HTTPD$\""
+	nsExec::Exec "sc start XYO_HTTPD"
 	Sleep 3000
 
 	SetOutPath $TEMP
@@ -268,10 +269,10 @@ Section "Uninstall"
 	!macroend
  
 	ClearErrors
-	ReadRegStr $INSTDIR HKLM "Software\HTTPD" "InstallPath"
+	ReadRegStr $INSTDIR HKLM "Software\XYO\HTTPD" "InstallPath"
 	IfErrors +2
 	StrCmp $INSTDIR "" 0 +2
-		StrCpy $INSTDIR "$PROGRAMFILES64\HTTPD"
+		StrCpy $INSTDIR "$PROGRAMFILES64\XYO\HTTPD"
  
 	# Check that the uninstall isn't dangerous.
 	!insertmacro BadPathsCheck
@@ -294,15 +295,15 @@ Section "Uninstall"
 
 	SetOutPath $TEMP
 
-	nsExec::Exec "sc stop HTTPD"
+	nsExec::Exec "sc stop XYO_HTTPD"
 	Sleep 3000
-	nsExec::Exec "sc delete HTTPD"
+	nsExec::Exec "sc delete XYO_HTTPD"
 	Sleep 1000
 
 
 	; Remove registry keys
-	DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\HTTPD"
-	DeleteRegKey HKLM "Software\HTTPD"
+	DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\XYO-HTTPD"
+	DeleteRegKey HKLM "Software\XYO\HTTPD"
 
 	; Set to HKLM
 	EnVar::SetHKLM
@@ -327,14 +328,14 @@ Section "Uninstall"
 	ReadEnvStr $0 "ProgramData"
 	StrCpy $PathProgramData $0
 
-	${If} ${FileExists} "$PathProgramData\HTTPD\www\*.*"
+	${If} ${FileExists} "$PathProgramData\XYO\HTTPD\www\*.*"
 		MessageBox MB_YESNO|MB_ICONSTOP|MB_DEFBUTTON2 "Delete www content?" IDYES removeWWWFolderUn
 		Goto doNotRemoveWWWFolderUn
 		removeWWWFolderUn:
-			 RMDir /r "$PathProgramData\HTTPD"
+			 RMDir /r "$PathProgramData\XYO\HTTPD"
 		doNotRemoveWWWFolderUn:
 	${Else}
-		 RMDir /r "$PathProgramData\HTTPD"
+		 RMDir /r "$PathProgramData\XYO\HTTPD"
 	${EndIf}
 
 	SetOutPath $TEMP
